@@ -1,0 +1,8 @@
+# directories
+auto-save-list
+elpa
+games
+
+# files
+ede-projects.el
+tramp
