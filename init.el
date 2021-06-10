@@ -10,7 +10,7 @@
  '(custom-safe-themes
    '("ea5822c1b2fb8bb6194a7ee61af3fe2cc7e2c7bab272cbb498a0234984e1b2d9" default))
  '(package-selected-packages
-   '(which-key rainbow-delimiters command-log-mode use-package rust-mode)))
+   '(magit which-key rainbow-delimiters command-log-mode use-package rust-mode)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -31,6 +31,7 @@
 ;; extra UI
 (line-number-mode 1)
 (column-number-mode 1)
+(show-paren-mode 1)
 (when (display-graphic-p) (set-fringe-mode 5))
 ; (display-line-numbers-mode 1) ; for emacs 27+ only
 
@@ -52,6 +53,7 @@
   (package-install 'use-package))
 
 (require 'use-package)
+(require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
 ;; color-coded parentheses
@@ -64,6 +66,8 @@
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.2))
+
+(use-package magit)
 
 ;; logging commands
 ;; useful with global-command-log-mode
