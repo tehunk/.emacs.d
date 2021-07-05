@@ -33,7 +33,8 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 (when (display-graphic-p) (set-fringe-mode 5))
-; (display-line-numbers-mode 1) ; for emacs 27+ only
+(set-face-attribute 'default nil :height 140) ; font-size default 16pt
+(add-hook 'prog-mode-hook 'display-line-numbers-mode) ; for emacs 27+ only
 
 
 ;; --------------------------------------------------------------------
