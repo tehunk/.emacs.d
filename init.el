@@ -10,7 +10,7 @@
  '(custom-safe-themes
    '("6c386d159853b0ee6695b45e64f598ed45bd67c47f671f69100817d7db64724d" "1a52e224f2e09af1084db19333eb817c23bceab5e742bf93caacbfea5de6b4f6" "4b0e826f58b39e2ce2829fab8ca999bcdc076dec35187bf4e9a4b938cb5771dc" "1d5e33500bc9548f800f9e248b57d1b2a9ecde79cb40c0b1398dec51ee820daf" "ea5822c1b2fb8bb6194a7ee61af3fe2cc7e2c7bab272cbb498a0234984e1b2d9" default))
  '(package-selected-packages
-   '(markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode)))
+   '(ivy markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -60,10 +60,8 @@
   :config
   (load-theme 'doom-one t))
 
-
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
-
 
 (use-package all-the-icons)
 
@@ -79,7 +77,15 @@
   :config
   (setq which-key-idle-delay 0.2))
 
+;; magit
 (use-package magit)
+
+;; ivy
+(use-package ivy
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  (ivy-mode))
 
 ;; projectile
 (use-package projectile
