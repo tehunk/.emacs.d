@@ -1,8 +1,11 @@
 # directories
-auto-save-list
-elpa
-games
+auto-save-list/
+elpa/
+games/
+transient/
 
 # files
 ede-projects.el
 tramp
+recentf
+projectile-bookmarks.eld
