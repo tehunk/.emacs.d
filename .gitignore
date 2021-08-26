@@ -9,3 +9,6 @@ ede-projects.el
 tramp
 recentf
 projectile-bookmarks.eld
+
+# emacs backup files
+*\~
