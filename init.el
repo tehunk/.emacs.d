@@ -9,7 +9,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes '(default))
  '(package-selected-packages
-   '(js2-mode diminish ivy markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode)))
+   '(treemacs-magit treemacs-icons-dired treemacs-projectile treemacs json-mode exec-path-from-shell prettier-js js2-mode diminish ivy markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode))
+ '(projectile-mode t nil (projectile)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -53,6 +54,11 @@
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
+;; env
+(use-package exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 
 ;; theme
 (use-package doom-themes
@@ -95,16 +101,38 @@
   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
   (projectile-mode 1))
 
-;; some major language modes
+;; treemacs
+(use-package treemacs
+  :defer t
+  :init)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile))
+
+(use-package treemacs-icons-dired
+  :after (treemacs dired)
+  :config (treemacs-icons-dired-mode))
+
+(use-package treemacs-magit
+  :after (treemacs magit))
+
+;; language modes
 (use-package swift-mode
   :mode "\\.swift\\'")
 (use-package rust-mode
   :mode "\\.rs\\'")
 (use-package markdown-mode
   :mode "\\.md\\'")
-(use-package js2-mode
-  :mode "\\.js\\'")
 
+(use-package prettier-js)
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :hook (js2-mode-hook . prettier-js-mode)
+  :config
+  (setq js-switch-indent-offset 4))
+
+(use-package json-mode
+  :mode "\\.json\\'")
 ;; logging commands
 ;; useful with global-command-log-mode
 ;; check M-x clm/* for the interface
