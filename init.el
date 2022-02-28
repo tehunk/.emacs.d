@@ -9,7 +9,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes '(default))
  '(package-selected-packages
-   '(treemacs-magit treemacs-icons-dired treemacs-projectile treemacs json-mode exec-path-from-shell prettier-js js2-mode diminish ivy markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode))
+   '(php-mode treemacs-magit treemacs-icons-dired treemacs-projectile treemacs json-mode exec-path-from-shell prettier-js js2-mode diminish ivy markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode))
  '(projectile-mode t nil (projectile)))
 
 (custom-set-faces
@@ -91,7 +91,7 @@
 (use-package ivy
   :config
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
+  ;(setq ivy-count-format "(%d/%d) ")
   (ivy-mode 1))
 
 ;; projectile
@@ -133,6 +133,10 @@
 
 (use-package json-mode
   :mode "\\.json\\'")
+
+(use-package php-mode
+  :mode "\\.php\\'")
+
 ;; logging commands
 ;; useful with global-command-log-mode
 ;; check M-x clm/* for the interface
