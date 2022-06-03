@@ -9,7 +9,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes '(default))
  '(package-selected-packages
-   '(php-mode treemacs-magit treemacs-icons-dired treemacs-projectile treemacs json-mode exec-path-from-shell prettier-js js2-mode diminish ivy markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode))
+   '(web-mode lsp-ivy company lsp-ui lsp-treemacs lsp-mode company-mode php-mode treemacs-magit treemacs-icons-dired treemacs-projectile treemacs json-mode exec-path-from-shell prettier-js js2-mode diminish ivy markdown-mode swift-mode all-the-icons doom-modeline doom-themes projectile magit which-key rainbow-delimiters command-log-mode use-package rust-mode))
  '(projectile-mode t nil (projectile)))
 
 (custom-set-faces
@@ -123,19 +123,56 @@
   :mode "\\.rs\\'")
 (use-package markdown-mode
   :mode "\\.md\\'")
-
-(use-package prettier-js)
-(use-package js2-mode
-  :mode "\\.js\\'"
-  :hook (js2-mode-hook . prettier-js-mode)
-  :config
-  (setq js-switch-indent-offset 4))
-
+(use-package php-mode
+  :mode "\\.php\\'")
 (use-package json-mode
   :mode "\\.json\\'")
 
-(use-package php-mode
-  :mode "\\.php\\'")
+;; coding utilities & IDE
+
+(use-package prettier-js)
+(use-package js2-mode
+;;  :mode "\\.js\\'"
+  :hook ((js2-mode-hook . prettier-js-mode))
+  :config
+  (setq js-switch-indent-offset 4))
+
+(use-package web-mode
+  :mode "\\.js\\'"
+  :hook ((web-mode-hook . prettier-js-mode)))
+
+;;;; completion
+(use-package company)
+
+;;;; lsp
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-enable-symbol-highlighting t)
+  (setq lsp-lens-enable nil)
+  (setq lsp-eldoc-enable-hover t)
+  (setq lsp-signature-auto-activate t)
+  (setq lsp-completion-enable t)
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (web-mode . lsp-deferred)
+	 (js2-mode . lsp-deffered)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred))
+(use-package lsp-ui
+  :init
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-show-with-cursor nil)
+  (setq lsp-ui-doc-show-with-mouse nil)
+  (setq lsp-ui-sideline-enable t)
+  :commands lsp-ui-mode)
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;;;; optionally if you want to use lsp debugger
+;; (use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
 
 ;; logging commands
 ;; useful with global-command-log-mode
